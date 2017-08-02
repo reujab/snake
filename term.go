@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 
 	"golang.org/x/crypto/ssh/terminal"
@@ -75,14 +76,14 @@ func watchInput() {
 		var input [3]byte
 		os.Stdin.Read(input[:])
 
-		switch string(input[:]) {
-		case "\x1b[A":
+		switch strings.Trim(string(input[:]), "\x00") {
+		case "\x1b[A", "w", "k":
 			snake.direction = up
-		case "\x1b[B":
+		case "\x1b[B", "s", "j":
 			snake.direction = down
-		case "\x1b[C":
+		case "\x1b[C", "d", "l":
 			snake.direction = right
-		case "\x1b[D":
+		case "\x1b[D", "a", "h":
 			snake.direction = left
 		}
 	}
