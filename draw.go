@@ -7,7 +7,7 @@ import (
 
 func draw() {
 	// clear the screen
-	print("\x1b[H\x1b[2J")
+	fmt.Print("\x1b[H\x1b[2J")
 
 	// account for borders and newline
 	if rows < boardHeight+3 || cols < boardWidth+2 {
