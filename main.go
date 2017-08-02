@@ -45,7 +45,7 @@ func main() {
 		fmt.Print("\x1b[?25h")   // tput cvvis
 	}()
 
-	drawBoard()
+	resize()
 	go func() {
 		for {
 			tick()

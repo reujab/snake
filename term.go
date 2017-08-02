@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -31,9 +32,11 @@ const (
 
 var cols, rows int
 
-func init() {
-	updateSize()
-}
+var (
+	tooSmall    bool
+	topPadding  int
+	leftPadding int
+)
 
 // detect terminal resizes
 func init() {
@@ -42,16 +45,26 @@ func init() {
 		signal.Notify(winch, syscall.SIGWINCH)
 		for {
 			<-winch
-			updateSize()
-			drawBoard()
+			resize()
 		}
 	}()
 }
 
-func updateSize() {
+func resize() {
+	// update terminal dimensions
 	var err error
 	cols, rows, err = terminal.GetSize(int(os.Stdin.Fd()))
 	if err != nil {
 		panic(err)
 	}
+
+	// account for borders and newline
+	tooSmall = rows < boardHeight+3 || cols < boardWidth+2
+
+	topPadding = (rows - boardHeight - 3) / 2
+	leftPadding = (cols - boardWidth - 2) / 2
+
+	// clear the screen
+	fmt.Print("\x1b[H\x1b[2J")
+	drawBoard()
 }

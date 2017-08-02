@@ -5,23 +5,11 @@ import (
 	"strings"
 )
 
-var tooSmall bool
-var topPadding int
-var leftPadding int
-
 func drawBoard() {
-	// clear the screen
-	fmt.Print("\x1b[H\x1b[2J")
-
-	// account for borders and newline
-	tooSmall = rows < boardHeight+3 || cols < boardWidth+2
 	if tooSmall {
 		fmt.Print("terminal too small")
 		return
 	}
-
-	topPadding = (rows - boardHeight - 3) / 2
-	leftPadding = (cols - boardWidth - 2) / 2
 
 	// draw board
 	fmt.Print(strings.Repeat("\n", topPadding))

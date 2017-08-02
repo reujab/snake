@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func tick() {
-	if gameState != stateRunning {
+	if gameState != stateRunning || tooSmall {
 		return
 	}
 
