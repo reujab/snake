@@ -11,7 +11,14 @@ func drawBoard() {
 		return
 	}
 
-	// draw board
+	drawBox()
+	drawSnake()
+	if gameState == stateOver {
+		drawGameOver()
+	}
+}
+
+func drawBox() {
 	fmt.Print(strings.Repeat("\n", topPadding))
 
 	fmt.Print(strings.Repeat(" ", leftPadding))
@@ -24,12 +31,6 @@ func drawBoard() {
 
 	fmt.Print(strings.Repeat(" ", leftPadding))
 	fmt.Println(boxBottomLeft + strings.Repeat(boxBottom, boardWidth) + boxBottomRight)
-
-	drawSnake()
-
-	if gameState == stateOver {
-		drawGameOver()
-	}
 }
 
 func drawSnake() {
