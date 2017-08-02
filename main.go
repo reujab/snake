@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"image"
 	"os"
 	"os/signal"
@@ -36,15 +35,8 @@ type Snake struct {
 var snake Snake
 
 func main() {
-	// switch to alternate terminal screen
-	fmt.Print("\x1b[?1049h") // tput smcup
-	// hide the cursor
-	fmt.Print("\x1b[?25l") // tput civis
-	defer func() {
-		fmt.Print("\x1b[H\x1b[2J") // clear
-		fmt.Print("\x1b[?1049l")   // tput rmcup
-		fmt.Print("\x1b[?25h")     // tput cvvis
-	}()
+	go watchDimensions()
+	go watchInput()
 
 	resize()
 	go func() {
@@ -57,4 +49,5 @@ func main() {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
 	<-interrupt
+	restoreTerm()
 }

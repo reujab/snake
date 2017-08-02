@@ -7,6 +7,8 @@ import (
 	"syscall"
 
 	"golang.org/x/crypto/ssh/terminal"
+
+	"github.com/pkg/term"
 )
 
 const (
@@ -30,6 +32,8 @@ const (
 	boardHeight = boardWidth / 2
 )
 
+var stdin *term.Term
+
 var cols, rows int
 
 var (
@@ -38,16 +42,40 @@ var (
 	leftPadding int
 )
 
-// detect terminal resizes
 func init() {
-	go func() {
-		winch := make(chan os.Signal, 1)
-		signal.Notify(winch, syscall.SIGWINCH)
-		for {
-			<-winch
-			resize()
-		}
-	}()
+	fmt.Print("\x1b[?1049h") // tput smcup
+	fmt.Print("\x1b[?25l")   // tput civis
+
+	var err error
+	stdin, err = term.Open("/dev/stdin")
+	if err != nil {
+		panic(err)
+	}
+	term.CBreakMode(stdin)
+}
+
+func restoreTerm() {
+	stdin.Restore()
+	fmt.Print("\x1b[H\x1b[2J") // clear
+	fmt.Print("\x1b[?25h")     // tput cvvis
+	fmt.Print("\x1b[?1049l")   // tput rmcup
+}
+
+func watchDimensions() {
+	winch := make(chan os.Signal, 1)
+	signal.Notify(winch, syscall.SIGWINCH)
+	for {
+		<-winch
+		resize()
+	}
+}
+
+func watchInput() {
+	for {
+		var input [3]byte
+		os.Stdin.Read(input[:])
+		fmt.Println(input)
+	}
 }
 
 func resize() {
