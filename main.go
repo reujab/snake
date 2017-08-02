@@ -18,10 +18,10 @@ const (
 
 var gameState = stateRunning
 
-type dir byte
+type direction byte
 
 const (
-	right dir = iota
+	right direction = iota
 	left
 	down
 	up
@@ -29,8 +29,8 @@ const (
 
 // Snake represents a snake.
 type Snake struct {
-	pos image.Point
-	dir dir
+	pos       image.Point
+	direction direction
 }
 
 var snake Snake

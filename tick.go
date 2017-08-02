@@ -12,7 +12,7 @@ func tick() {
 
 	// update snake position
 	lastPos := snake.pos
-	switch snake.dir {
+	switch snake.direction {
 	case right:
 		snake.pos.X++
 	case left:
