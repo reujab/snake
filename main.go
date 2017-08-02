@@ -41,8 +41,9 @@ func main() {
 	// hide the cursor
 	fmt.Print("\x1b[?25l") // tput civis
 	defer func() {
-		fmt.Print("\x1b[?1049l") // tput rmcup
-		fmt.Print("\x1b[?25h")   // tput cvvis
+		fmt.Print("\x1b[H\x1b[2J") // clear
+		fmt.Print("\x1b[?1049l")   // tput rmcup
+		fmt.Print("\x1b[?25h")     // tput cvvis
 	}()
 
 	resize()
