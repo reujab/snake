@@ -40,12 +40,16 @@ func drawSnake() {
 
 	// move cursor
 	fmt.Printf("\x1b[%d;%dH", topPadding+2+snake.pos.Y/2, leftPadding+2+snake.pos.X)
+	// set foreground to green
+	fmt.Print("\x1b[32m")
 	// print snake
 	if snake.pos.Y%2 == 0 {
 		fmt.Print(blockUp)
 	} else {
 		fmt.Print(blockDown)
 	}
+	// reset colors
+	fmt.Print("\x1b[0m")
 }
 
 func drawGameOver() {
