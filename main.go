@@ -47,7 +47,7 @@ func main() {
 	go func() {
 		for {
 			tick()
-			time.Sleep(time.Millisecond * 250)
+			time.Sleep(time.Millisecond * 100)
 		}
 	}()
 
