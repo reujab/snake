@@ -5,18 +5,23 @@ import (
 	"strings"
 )
 
-func draw() {
+var tooSmall bool
+var topPadding int
+var leftPadding int
+
+func drawBoard() {
 	// clear the screen
 	fmt.Print("\x1b[H\x1b[2J")
 
 	// account for borders and newline
-	if rows < boardHeight+3 || cols < boardWidth+2 {
-		fmt.Println("terminal too small")
+	tooSmall = rows < boardHeight+3 || cols < boardWidth+2
+	if tooSmall {
+		fmt.Print("terminal too small")
 		return
 	}
 
-	topPadding := (rows - boardHeight - 3) / 2
-	leftPadding := (cols - boardWidth - 2) / 2
+	topPadding = (rows - boardHeight - 3) / 2
+	leftPadding = (cols - boardWidth - 2) / 2
 
 	// draw board
 	fmt.Print(strings.Repeat("\n", topPadding))
@@ -32,7 +37,18 @@ func draw() {
 	fmt.Print(strings.Repeat(" ", leftPadding))
 	fmt.Println(boxBottomLeft + strings.Repeat(boxBottom, boardWidth) + boxBottomRight)
 
-	// draw snake
+	drawSnake()
+
+	if gameState == stateOver {
+		drawGameOver()
+	}
+}
+
+func drawSnake() {
+	if tooSmall {
+		return
+	}
+
 	// move cursor
 	fmt.Printf("\x1b[%d;%dH", topPadding+2+snake.pos.Y/2, leftPadding+2+snake.pos.X)
 	// print snake
@@ -41,7 +57,9 @@ func draw() {
 	} else {
 		fmt.Print(blockDown)
 	}
+}
 
+func drawGameOver() {
 	// game over
 	if gameState == stateOver {
 		msg := "Game over!"

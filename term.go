@@ -43,7 +43,7 @@ func init() {
 		for {
 			<-winch
 			updateSize()
-			draw()
+			drawBoard()
 		}
 	}()
 }
