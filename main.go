@@ -10,8 +10,11 @@ import (
 func main() {
 	// switch to alternate terminal screen
 	print("\x1b[?1049h") // tput smcup
+	// hide the cursor
+	print("\x1b[?25l") // tput civis
 	defer func() {
 		print("\x1b[?1049l") // tput rmcup
+		print("\x1b[?25h")   // tput cvvis
 	}()
 
 	go func() {
