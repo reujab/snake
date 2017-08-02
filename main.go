@@ -9,6 +9,15 @@ import (
 	"time"
 )
 
+type state byte
+
+const (
+	stateRunning state = iota
+	stateOver
+)
+
+var gameState = stateRunning
+
 type dir byte
 
 const (

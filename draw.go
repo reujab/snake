@@ -41,4 +41,11 @@ func draw() {
 	} else {
 		fmt.Print(blockDown)
 	}
+
+	if gameState == stateOver {
+		msg := "Game over!"
+		// move cursor
+		fmt.Printf("\x1b[%d;%dH", rows/2, cols/2-len(msg)/2)
+		fmt.Print(msg)
+	}
 }
