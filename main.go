@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 	"unsafe"
 )
 
@@ -30,6 +31,14 @@ func main() {
 			<-winch
 			rows, cols = getSize()
 			fmt.Println(rows, cols)
+		}
+	}()
+
+	go func() {
+		for {
+			tick()
+			draw()
+			time.Sleep(time.Millisecond * 250)
 		}
 	}()
 
