@@ -74,7 +74,17 @@ func watchInput() {
 	for {
 		var input [3]byte
 		os.Stdin.Read(input[:])
-		fmt.Println(input)
+
+		switch string(input[:]) {
+		case "\x1b[A":
+			snake.direction = up
+		case "\x1b[B":
+			snake.direction = down
+		case "\x1b[C":
+			snake.direction = right
+		case "\x1b[D":
+			snake.direction = left
+		}
 	}
 }
 

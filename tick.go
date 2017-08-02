@@ -8,7 +8,7 @@ func tick() {
 	}
 
 	// erase old snake
-	fmt.Printf("\x1b[%d;%dH ", topPadding+2+snake.pos.Y, leftPadding+2+snake.pos.X)
+	fmt.Printf("\x1b[%d;%dH ", topPadding+2+snake.pos.Y/2, leftPadding+2+snake.pos.X)
 
 	// update snake position
 	lastPos := snake.pos
