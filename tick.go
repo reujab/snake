@@ -24,7 +24,7 @@ func tick() {
 	}
 
 	// check if the player lost
-	if snake.pos.X < 0 || snake.pos.X >= boardWidth || snake.pos.Y < 0 || snake.pos.Y >= boardHeight {
+	if snake.pos.X < 0 || snake.pos.X >= boardWidth || snake.pos.Y < 0 || snake.pos.Y/2 >= boardHeight {
 		gameState = stateOver
 		snake.pos = lastPos
 		drawSnake()
