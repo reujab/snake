@@ -19,6 +19,9 @@ const (
 
 	boxLeft  = "\u2502"
 	boxRight = "\u2502"
+
+	blockUp   = "\u2580"
+	blockDown = "\u2584"
 )
 
 const (

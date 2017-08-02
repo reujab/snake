@@ -2,11 +2,29 @@ package main
 
 import (
 	"fmt"
+	"image"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 )
+
+type dir byte
+
+const (
+	right dir = iota
+	left
+	down
+	up
+)
+
+// Snake represents a snake.
+type Snake struct {
+	pos image.Point
+	dir dir
+}
+
+var snake = Snake{}
 
 func main() {
 	// switch to alternate terminal screen
