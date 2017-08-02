@@ -33,7 +33,7 @@ type Snake struct {
 	dir dir
 }
 
-var snake = Snake{}
+var snake Snake
 
 func main() {
 	// switch to alternate terminal screen
