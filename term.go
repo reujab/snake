@@ -8,6 +8,24 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 )
 
+const (
+	boxTop      = "\u2500"
+	boxTopLeft  = "\u250c"
+	boxTopRight = "\u2510"
+
+	boxBottom      = "\u2500"
+	boxBottomLeft  = "\u2514"
+	boxBottomRight = "\u2518"
+
+	boxLeft  = "\u2502"
+	boxRight = "\u2502"
+)
+
+const (
+	boardWidth  = 70
+	boardHeight = boardWidth / 2
+)
+
 var cols, rows int
 
 func init() {
