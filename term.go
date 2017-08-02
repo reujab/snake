@@ -28,11 +28,6 @@ const (
 	blockDown = "\u2584"
 )
 
-const (
-	boardWidth  = 70
-	boardHeight = boardWidth / 2
-)
-
 var stdin *term.Term
 
 var cols, rows int

@@ -11,6 +11,11 @@ import (
 type state byte
 
 const (
+	boardWidth  = 70
+	boardHeight = boardWidth / 2
+)
+
+const (
 	stateRunning state = iota
 	stateOver
 )
