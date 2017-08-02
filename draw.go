@@ -34,7 +34,11 @@ func draw() {
 
 	// draw snake
 	// move cursor
-	fmt.Printf("\x1b[%d;%dH", topPadding+2+snake.pos.Y, leftPadding+2+snake.pos.X)
+	fmt.Printf("\x1b[%d;%dH", topPadding+2+snake.pos.Y/2, leftPadding+2+snake.pos.X)
 	// print snake
-	fmt.Print(blockUp)
+	if snake.pos.Y%2 == 0 {
+		fmt.Print(blockUp)
+	} else {
+		fmt.Print(blockDown)
+	}
 }
