@@ -57,9 +57,3 @@ func main() {
 	signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
 	<-interrupt
 }
-
-func die(err error) {
-	if err != nil {
-		panic(err)
-	}
-}

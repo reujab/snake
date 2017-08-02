@@ -51,5 +51,7 @@ func init() {
 func updateSize() {
 	var err error
 	cols, rows, err = terminal.GetSize(int(os.Stdin.Fd()))
-	die(err)
+	if err != nil {
+		panic(err)
+	}
 }
