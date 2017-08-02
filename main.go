@@ -15,6 +15,12 @@ func init() {
 }
 
 func main() {
+	// switch to alternate terminal screen
+	print("\x1b[?1049h") // tput smcup
+	defer func() {
+		print("\x1b[?1049l") // tput rmcup
+	}()
+
 	// detect terminal resizes
 	go func() {
 		fmt.Println(getSize())
