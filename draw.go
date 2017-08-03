@@ -25,7 +25,7 @@ func drawBox() {
 	fmt.Print(strings.Repeat(" ", leftPadding))
 	fmt.Println(boxTopLeft + strings.Repeat(boxTop, boardWidth) + boxTopRight)
 
-	for i := 0; i < boardHeight; i++ {
+	for i := 0; i < boardHeight/2; i++ {
 		fmt.Print(strings.Repeat(" ", leftPadding))
 		fmt.Println(boxLeft + strings.Repeat(" ", boardWidth) + boxRight)
 	}

@@ -12,7 +12,7 @@ func init() {
 
 func resetFood() {
 	food.pos.X = rand.Intn(boardWidth)
-	food.pos.Y = rand.Intn(boardHeight * 2)
+	food.pos.Y = rand.Intn(boardHeight)
 	drawFood()
 }
 
@@ -38,7 +38,7 @@ func tick() {
 	}
 
 	// check if the player lost
-	if snake.pos.X < 0 || snake.pos.X >= boardWidth || snake.pos.Y < 0 || snake.pos.Y/2 >= boardHeight {
+	if snake.pos.X < 0 || snake.pos.X >= boardWidth || snake.pos.Y < 0 || snake.pos.Y >= boardHeight {
 		gameState = stateOver
 		snake.pos = lastPos
 		drawSnake()

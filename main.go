@@ -12,7 +12,7 @@ type state byte
 
 const (
 	boardWidth  = 70
-	boardHeight = boardWidth / 2
+	boardHeight = boardWidth
 )
 
 const (
