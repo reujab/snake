@@ -82,11 +82,8 @@ func drawFood() {
 }
 
 func drawGameOver() {
-	// game over
-	if gameState == stateOver {
-		msg := "Game over!"
-		// move cursor
-		fmt.Printf("\x1b[%d;%dH", rows/2, cols/2-len(msg)/2+1)
-		fmt.Print(msg)
-	}
+	msg := "Game over!"
+	// move cursor
+	fmt.Printf("\x1b[%d;%dH", rows/2, cols/2-len(msg)/2+1)
+	fmt.Print(msg)
 }
