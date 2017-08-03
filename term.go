@@ -100,5 +100,5 @@ func resize() {
 
 	// clear the screen
 	fmt.Print("\x1b[H\x1b[2J")
-	drawBoard()
+	draw()
 }

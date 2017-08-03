@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func drawBoard() {
+func draw() {
 	if tooSmall {
 		fmt.Print("terminal too small")
 		return
