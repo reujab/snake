@@ -35,10 +35,6 @@ func drawBox() {
 }
 
 func drawSnake() {
-	if tooSmall {
-		return
-	}
-
 	// move cursor
 	fmt.Printf("\x1b[%d;%dH", topPadding+2+snake.pos.Y/2, leftPadding+2+snake.pos.X)
 	// set foreground to green
@@ -54,10 +50,6 @@ func drawSnake() {
 }
 
 func drawFood() {
-	if tooSmall {
-		return
-	}
-
 	// move cursor
 	fmt.Printf("\x1b[%d;%dH", topPadding+2+food.pos.Y/2, leftPadding+2+food.pos.X)
 
