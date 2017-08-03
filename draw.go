@@ -13,6 +13,7 @@ func drawBoard() {
 
 	drawBox()
 	drawSnake()
+	drawFood()
 	if gameState == stateOver {
 		drawGameOver()
 	}
@@ -48,6 +49,34 @@ func drawSnake() {
 	} else {
 		fmt.Print(blockDown)
 	}
+	// reset colors
+	fmt.Print("\x1b[0m")
+}
+
+func drawFood() {
+	if tooSmall {
+		return
+	}
+
+	// move cursor
+	fmt.Printf("\x1b[%d;%dH", topPadding+2+food.pos.Y/2, leftPadding+2+food.pos.X)
+
+	// check if snake head and food occupy the same cell
+	if food.pos.X == snake.pos.X && food.pos.Y/2 == snake.pos.Y/2 {
+		// set background to green
+		fmt.Print("\x1b[42m")
+	}
+
+	// set foreground to red
+	fmt.Print("\x1b[31m")
+
+	// print apple
+	if food.pos.Y%2 == 0 {
+		fmt.Print(blockUp)
+	} else {
+		fmt.Print(blockDown)
+	}
+
 	// reset colors
 	fmt.Print("\x1b[0m")
 }

@@ -39,10 +39,18 @@ type Snake struct {
 
 var snake Snake
 
+// Food represents an apple.
+type Food struct {
+	pos image.Point
+}
+
+var food Food
+
 func main() {
 	go watchDimensions()
 	go watchInput()
 
+	resetFood()
 	resize()
 	go func() {
 		for {

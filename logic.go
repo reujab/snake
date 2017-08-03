@@ -1,6 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+func resetFood() {
+	food.pos.X = rand.Intn(boardWidth)
+	food.pos.Y = rand.Intn(boardHeight * 2)
+	drawFood()
+}
 
 func tick() {
 	if gameState != stateRunning || tooSmall {
@@ -31,5 +45,15 @@ func tick() {
 		drawGameOver()
 	} else {
 		drawSnake()
+	}
+
+	// check if snake is colliding with food
+	if snake.pos.Eq(food.pos) {
+		resetFood()
+	}
+
+	// check if snake and food occupy the same cell
+	if snake.pos.X == food.pos.X && snake.pos.Y/2 == food.pos.Y/2 || lastPos.X == food.pos.X && lastPos.Y/2 == food.pos.Y/2 {
+		drawFood()
 	}
 }
