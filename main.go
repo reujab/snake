@@ -11,7 +11,7 @@ import (
 type state byte
 
 const (
-	boardWidth  = 70
+	boardWidth  = 40
 	boardHeight = boardWidth
 )
 
