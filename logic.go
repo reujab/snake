@@ -49,7 +49,18 @@ func tick() {
 	}
 
 	// check if the player lost
-	if snake.body[0].X < 0 || snake.body[0].X >= boardWidth || snake.body[0].Y < 0 || snake.body[0].Y >= boardHeight {
+	var lost bool
+	// check if the snake is colliding with itself
+	for _, pos := range snake.body[1:] {
+		if snake.body[0] == pos {
+			lost = true
+			break
+		}
+	}
+	// check if snake is out of bounds
+	lost = lost || snake.body[0].X < 0 || snake.body[0].X >= boardWidth || snake.body[0].Y < 0 || snake.body[0].Y >= boardHeight
+
+	if lost {
 		gameState = stateOver
 		snake.body = lastBody
 		drawSnake()
