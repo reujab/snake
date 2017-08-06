@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"image"
 	"math/rand"
 	"time"
 )
@@ -21,26 +22,35 @@ func tick() {
 		return
 	}
 
-	// erase old snake
-	fmt.Printf("\x1b[%d;%dH ", topPadding+2+snake.pos.Y/2, leftPadding+2+snake.pos.X)
+	for i := len(snake.body) - 1; i > 0; i-- {
+		// erase old point
+		fmt.Printf("\x1b[%d;%dH ", topPadding+2+snake.body[i].Y/2, leftPadding+2+snake.body[i].X)
 
-	// update snake position
-	lastPos := snake.pos
+		// update position
+		snake.body[i] = snake.body[i-1]
+	}
+
+	// erase old snake head
+	fmt.Printf("\x1b[%d;%dH ", topPadding+2+snake.body[0].Y/2, leftPadding+2+snake.body[0].X)
+
+	// update snake head position
+	lastBody := make([]image.Point, len(snake.body))
+	copy(lastBody, snake.body)
 	switch snake.direction {
 	case right:
-		snake.pos.X++
+		snake.body[0].X++
 	case left:
-		snake.pos.X--
+		snake.body[0].X--
 	case down:
-		snake.pos.Y++
+		snake.body[0].Y++
 	case up:
-		snake.pos.Y--
+		snake.body[0].Y--
 	}
 
 	// check if the player lost
-	if snake.pos.X < 0 || snake.pos.X >= boardWidth || snake.pos.Y < 0 || snake.pos.Y >= boardHeight {
+	if snake.body[0].X < 0 || snake.body[0].X >= boardWidth || snake.body[0].Y < 0 || snake.body[0].Y >= boardHeight {
 		gameState = stateOver
-		snake.pos = lastPos
+		snake.body = lastBody
 		drawSnake()
 		drawGameOver()
 	} else {
@@ -48,12 +58,16 @@ func tick() {
 	}
 
 	// check if snake is colliding with food
-	if snake.pos.Eq(food.pos) {
+	if snake.body[0].Eq(food.pos) {
+		snake.body = append(snake.body, lastBody[len(lastBody)-1])
 		resetFood()
 	}
 
 	// check if snake and food occupy the same cell
-	if snake.pos.X == food.pos.X && snake.pos.Y/2 == food.pos.Y/2 || lastPos.X == food.pos.X && lastPos.Y/2 == food.pos.Y/2 {
-		drawFood()
+	for _, pos := range snake.body {
+		if pos.Y/2 == food.pos.Y/2 {
+			drawFood()
+			break
+		}
 	}
 }

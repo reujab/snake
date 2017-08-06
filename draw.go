@@ -35,16 +35,31 @@ func drawBox() {
 }
 
 func drawSnake() {
-	// move cursor
-	fmt.Printf("\x1b[%d;%dH", topPadding+2+snake.pos.Y/2, leftPadding+2+snake.pos.X)
-	// set foreground to green
-	fmt.Print("\x1b[32m")
-	// print snake
-	if snake.pos.Y%2 == 0 {
-		fmt.Print(blockUp)
-	} else {
-		fmt.Print(blockDown)
+	// set foreground to white
+	fmt.Print("\x1b[37m")
+
+	for i, point := range snake.body {
+		// move cursor
+		fmt.Printf("\x1b[%d;%dH", topPadding+2+point.Y/2, leftPadding+2+point.X)
+
+		// print point
+		var fullBlock bool
+		for j := range snake.body {
+			if j != i && point.X == snake.body[j].X && snake.body[j].Y/2 == point.Y/2 {
+				fullBlock = true
+				fmt.Print(block)
+				break
+			}
+		}
+		if !fullBlock {
+			if point.Y%2 == 0 {
+				fmt.Print(blockUp)
+			} else {
+				fmt.Print(blockDown)
+			}
+		}
 	}
+
 	// reset colors
 	fmt.Print("\x1b[0m")
 }
@@ -53,10 +68,12 @@ func drawFood() {
 	// move cursor
 	fmt.Printf("\x1b[%d;%dH", topPadding+2+food.pos.Y/2, leftPadding+2+food.pos.X)
 
-	// check if snake head and food occupy the same cell
-	if food.pos.X == snake.pos.X && food.pos.Y/2 == snake.pos.Y/2 {
-		// set background to green
-		fmt.Print("\x1b[42m")
+	// check if snake and food occupy the same cell
+	for _, point := range snake.body {
+		if food.pos.X == point.X && food.pos.Y/2 == point.Y/2 {
+			// set background to white
+			fmt.Print("\x1b[47m")
+		}
 	}
 
 	// set foreground to red

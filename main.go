@@ -33,11 +33,14 @@ const (
 
 // Snake represents a snake.
 type Snake struct {
-	pos       image.Point
 	direction direction
+	body      []image.Point
 }
 
-var snake Snake
+var snake = Snake{
+	// initialize head
+	body: []image.Point{{}},
+}
 
 // Food represents an apple.
 type Food struct {
