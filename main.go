@@ -33,8 +33,9 @@ const (
 
 // Snake represents a snake.
 type Snake struct {
-	direction direction
-	body      []image.Point
+	direction     direction
+	lastDirection direction
+	body          []image.Point
 }
 
 var snake = Snake{

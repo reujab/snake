@@ -82,4 +82,6 @@ func tick() {
 			break
 		}
 	}
+
+	snake.lastDirection = snake.direction
 }
