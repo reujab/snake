@@ -74,13 +74,21 @@ func watchInput() {
 
 		switch strings.Trim(string(input[:]), "\x00") {
 		case "\x1b[A", "w", "k":
-			snake.direction = up
+			if snake.direction != down {
+				snake.direction = up
+			}
 		case "\x1b[B", "s", "j":
-			snake.direction = down
+			if snake.direction != up {
+				snake.direction = down
+			}
 		case "\x1b[C", "d", "l":
-			snake.direction = right
+			if snake.direction != left {
+				snake.direction = right
+			}
 		case "\x1b[D", "a", "h":
-			snake.direction = left
+			if snake.direction != right {
+				snake.direction = left
+			}
 		}
 	}
 }
