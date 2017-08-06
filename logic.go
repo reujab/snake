@@ -22,6 +22,9 @@ func tick() {
 		return
 	}
 
+	lastBody := make([]image.Point, len(snake.body))
+	copy(lastBody, snake.body)
+
 	for i := len(snake.body) - 1; i > 0; i-- {
 		// erase old point
 		fmt.Printf("\x1b[%d;%dH ", topPadding+2+snake.body[i].Y/2, leftPadding+2+snake.body[i].X)
@@ -34,8 +37,6 @@ func tick() {
 	fmt.Printf("\x1b[%d;%dH ", topPadding+2+snake.body[0].Y/2, leftPadding+2+snake.body[0].X)
 
 	// update snake head position
-	lastBody := make([]image.Point, len(snake.body))
-	copy(lastBody, snake.body)
 	switch snake.direction {
 	case right:
 		snake.body[0].X++
