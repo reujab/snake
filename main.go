@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+var start = time.Now()
+
 type state byte
 
 const (

@@ -101,8 +101,8 @@ func resize() {
 		panic(err)
 	}
 
-	// account for borders and newline
-	tooSmall = rows < boardHeight/2+3 || cols < boardWidth+2
+	// account for borders, stats, and newline
+	tooSmall = rows < boardHeight/2+3+2 || cols < boardWidth+2
 
 	topPadding = (rows - boardHeight/2 - 3) / 2
 	leftPadding = (cols - boardWidth - 2) / 2

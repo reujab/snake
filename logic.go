@@ -97,4 +97,6 @@ func tick() {
 	}
 
 	snake.lastDirection = snake.direction
+
+	drawStats()
 }
