@@ -9,51 +9,32 @@ import (
 	"time"
 )
 
-var start = time.Now()
-
-var tickInterval time.Duration
-
-type state byte
-
-var (
-	boardWidth  int
-	boardHeight int
-)
-
 const (
 	stateRunning state = iota
 	stateOver
-)
 
-var gameState = stateRunning
-
-type direction byte
-
-const (
 	right direction = iota
 	left
 	down
 	up
 )
 
-// Snake represents a snake.
-type Snake struct {
-	direction     direction
-	lastDirection direction
-	body          []image.Point
-}
+var (
+	start = time.Now()
 
-var snake = Snake{
-	// initialize head
-	body: []image.Point{{}},
-}
+	tickInterval time.Duration
+	boardWidth   int
+	boardHeight  int
 
-// Food represents an apple.
-type Food struct {
-	pos image.Point
-}
+	gameState = stateRunning
 
-var food Food
+	snake = Snake{
+		// initialize head
+		body: []image.Point{{}},
+	}
+
+	food Food
+)
 
 func init() {
 	flag.IntVar(&boardWidth, "width", 32, "the width of the board")
