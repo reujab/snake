@@ -12,8 +12,21 @@ func init() {
 }
 
 func resetFood() {
-	food.pos.X = rand.Intn(boardWidth)
-	food.pos.Y = rand.Intn(boardHeight)
+	colliding := true
+	for colliding {
+		food.pos.X = rand.Intn(boardWidth)
+		food.pos.Y = rand.Intn(boardHeight)
+
+		// check if new food position collides with snake
+		colliding = false
+		for _, pos := range snake.body {
+			if food.pos.Eq(pos) {
+				colliding = true
+				break
+			}
+		}
+	}
+
 	drawFood()
 }
 
