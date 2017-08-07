@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -104,9 +103,9 @@ func drawStats() {
 	// move cursor
 	fmt.Printf("\x1b[%d;%dH", topPadding+3+boardHeight/2, leftPadding+2)
 
-	seconds := time.Since(start).Seconds()
-	elapsed, _ := time.ParseDuration(strconv.Itoa(int(seconds)) + "s")
-	fmt.Println("Elapsed time:", elapsed)
+	elapsed := time.Since(start)
+	// round to the nearest second
+	fmt.Println("Elapsed time:", elapsed-elapsed%time.Second)
 
 	fmt.Print(strings.Repeat(" ", leftPadding+1))
 	fmt.Print("Length: ", len(snake.body))
