@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"image"
 	"os"
 	"os/signal"
@@ -10,11 +11,13 @@ import (
 
 var start = time.Now()
 
+var tickInterval time.Duration
+
 type state byte
 
-const (
-	boardWidth  = 40
-	boardHeight = boardWidth
+var (
+	boardWidth  int
+	boardHeight int
 )
 
 const (
@@ -52,6 +55,16 @@ type Food struct {
 
 var food Food
 
+func init() {
+	flag.IntVar(&boardWidth, "width", 32, "the width of the board")
+	flag.IntVar(&boardHeight, "height", 32, "the height of the board")
+	flag.DurationVar(&tickInterval, "tick-interval", time.Millisecond*100, "the tick interval")
+	flag.Parse()
+	if boardHeight%2 != 0 {
+		panic("board height must be even")
+	}
+}
+
 func main() {
 	go watchDimensions()
 	go watchInput()
@@ -61,7 +74,7 @@ func main() {
 	go func() {
 		for {
 			tick()
-			time.Sleep(time.Millisecond * 100)
+			time.Sleep(tickInterval)
 		}
 	}()
 
