@@ -89,7 +89,7 @@ func tick() {
 	}
 
 	// check if snake and food occupy the same cell
-	for _, pos := range snake.body {
+	for _, pos := range append(snake.body, lastBody[len(lastBody)-1]) {
 		if pos.Y/2 == food.pos.Y/2 {
 			drawFood()
 			break
