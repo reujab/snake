@@ -12,7 +12,9 @@ import (
 const (
 	stateRunning state = iota
 	stateOver
+)
 
+const (
 	right direction = iota
 	left
 	down
